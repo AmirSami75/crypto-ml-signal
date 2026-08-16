@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "name": "Crypto ML Signal",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+    "python.analysis.extraPaths": ["${workspaceFolder}/src"]
+  }
+}
+

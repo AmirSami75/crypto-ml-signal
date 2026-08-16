@@ -1,0 +1,66 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "1. Setup Python environment",
+      "type": "shell",
+      "command": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -e .",
+      "windows": {
+        "command": "py -m venv .venv; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; .\\.venv\\Scripts\\python.exe -m pip install --upgrade pip; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; .\\.venv\\Scripts\\python.exe -m pip install -e ."
+      },
+      "osx": {
+        "command": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -e ."
+      },
+      "linux": {
+        "command": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -e ."
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "2. Run offline demo",
+      "type": "shell",
+      "command": ".venv/bin/python -m crypto_signal --config config.demo.toml demo",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python.exe -m crypto_signal --config config.demo.toml demo"
+      },
+      "options": {
+        "env": {
+          "PYTHONPATH": "${workspaceFolder}/src",
+          "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "3. Run unit tests",
+      "type": "shell",
+      "command": ".venv/bin/python -m unittest discover -s tests -v",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python.exe -m unittest discover -s tests -v"
+      },
+      "options": {
+        "env": {
+          "PYTHONPATH": "${workspaceFolder}/src",
+          "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "4. Run real BTC pipeline",
+      "type": "shell",
+      "command": ".venv/bin/python -m crypto_signal --config config.toml run-all",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python.exe -m crypto_signal --config config.toml run-all"
+      },
+      "options": {
+        "env": {
+          "PYTHONPATH": "${workspaceFolder}/src",
+          "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib"
+        }
+      },
+      "problemMatcher": []
+    }
+  ]
+}
+

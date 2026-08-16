@@ -1,0 +1,102 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "1. Offline Demo: Train + Signal",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "crypto_signal",
+      "args": ["--config", "config.demo.toml", "demo"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+        "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib"
+      }
+    },
+    {
+      "name": "2. Offline Demo: Latest Signal Only",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "crypto_signal",
+      "args": ["--config", "config.demo.toml", "signal", "--offline"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+        "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib"
+      }
+    },
+    {
+      "name": "3. Real BTC: Download + Train + Signal",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "crypto_signal",
+      "args": ["--config", "config.toml", "run-all"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+        "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib"
+      }
+    },
+    {
+      "name": "4. Real BTC: Download Data Only",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "crypto_signal",
+      "args": ["--config", "config.toml", "download"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+      }
+    },
+    {
+      "name": "5. Real BTC: Train Existing Data",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "crypto_signal",
+      "args": ["--config", "config.toml", "train"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+        "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib"
+      }
+    },
+    {
+      "name": "6. Real BTC: Latest Signal Only",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "crypto_signal",
+      "args": ["--config", "config.toml", "signal"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+      }
+    },
+    {
+      "name": "7. Run Unit Tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "unittest",
+      "args": ["discover", "-s", "tests", "-v"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+        "MPLCONFIGDIR": "${workspaceFolder}/.cache/matplotlib"
+      }
+    }
+  ]
+}
+
