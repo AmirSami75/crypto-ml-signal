@@ -12,6 +12,11 @@ training results as readable percentages and formatted numbers.
 This is a learning and research system. It does **not** place orders. In the default
 long-only mode, `SELL` means exit to cash; it does not open a short position.
 
+The repository is evolving into a Django and React operations platform while keeping the
+research package independent. See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)
+for the monorepo boundaries and [backend/README.md](backend/README.md) for the containerized
+API workflow.
+
 ## Run with one click in VS Code
 
 Open `crypto-ml-signal.code-workspace`, run **Terminal → Run Task → 1. Setup Python

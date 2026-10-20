@@ -4,8 +4,15 @@ __pycache__/
 .venv/
 .pytest_cache/
 .DS_Store
+.env
+.env.*
+!.env.example
+!**/.env.example
 data/*.csv
 artifacts/*
 !data/.gitkeep
 !artifacts/.gitkeep
 
+# .NET build output (the orchestrator is a .NET project)
+**/bin/
+**/obj/

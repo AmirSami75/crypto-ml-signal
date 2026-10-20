@@ -1,0 +1,51 @@
+services:
+  db:
+    env_file:
+      - ./env/dev/db.env
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql
+
+  migrate:
+    build:
+      network: host
+      args:
+        PIP_PROXY: ${PIP_PROXY:-http://127.0.0.1:10808}
+    env_file:
+      - ./env/dev/app.env
+      - ./env/dev/db.env
+    volumes:
+      - ./backend:/app/backend
+      - ./src:/app/src
+
+  seed:
+    build:
+      network: host
+      args:
+        PIP_PROXY: ${PIP_PROXY:-http://127.0.0.1:10808}
+    env_file:
+      - ./env/dev/app.env
+      - ./env/dev/db.env
+    volumes:
+      - ./backend:/app/backend
+      - ./src:/app/src
+
+  api:
+    build:
+      network: host
+      args:
+        PIP_PROXY: ${PIP_PROXY:-http://127.0.0.1:10808}
+    env_file:
+      - ./env/dev/app.env
+      - ./env/dev/db.env
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./backend:/app/backend
+      - ./src:/app/src
+
+volumes:
+  postgres_dev_data:
+    name: crypto-ml-signal-postgres-dev-identity

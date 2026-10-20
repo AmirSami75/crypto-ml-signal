@@ -1,0 +1,29 @@
+services:
+  db:
+    env_file:
+      - ./env/prod/db.env
+    restart: unless-stopped
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql
+
+  migrate:
+    env_file:
+      - ./env/prod/app.env
+      - ./env/prod/db.env
+
+  seed:
+    env_file:
+      - ./env/prod/app.env
+      - ./env/prod/db.env
+
+  api:
+    env_file:
+      - ./env/prod/app.env
+      - ./env/prod/db.env
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: unless-stopped
+
+volumes:
+  postgres_prod_data:
+    name: crypto-ml-signal-postgres-prod

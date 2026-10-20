@@ -1,0 +1,64 @@
+name: crypto-ml-signal
+
+x-backend-service: &backend-service
+  build:
+    context: .
+    dockerfile: infra/docker/backend/Dockerfile
+    target: runtime
+  image: crypto-ml-signal-api:${IMAGE_TAG:-local}
+  init: true
+  networks:
+    - application
+
+services:
+  db:
+    image: postgres:18.3-alpine3.23
+    shm_size: 128mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    networks:
+      - application
+
+  migrate:
+    <<: *backend-service
+    command: ["python", "manage.py", "migrate", "--noinput"]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  seed:
+    <<: *backend-service
+    command: ["python", "manage.py", "seed_superadmin"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: "no"
+
+  api:
+    <<: *backend-service
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+    expose:
+      - "8000"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen('http://127.0.0.1:8000/health/', timeout=3)
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 10s
+
+networks:
+  application:
+    driver: bridge
